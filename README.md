@@ -14,10 +14,20 @@ DTO Pattern: Utilizes Request and Response Data Transfer Objects (ProductRequest
 Custom Exception Handling: Implements ProductServiceCustomException for graceful error handling when products are not found.
 
 In-Memory Database Integration: Ready-to-use H2 database configuration for rapid development and testing.
+🛠 Tech StackComponentTechnologyDescriptionLanguageJava 17Core programming language.FrameworkSpring Boot 3.3.0Application framework and IoC container.PersistenceSpring Data JPAORM layer for database interactions.DatabaseH2 DatabaseIn-memory relational database for rapid dev/testing.UtilitiesLombokAnnotation processor for reducing boilerplate code.Build ToolMavenDependency management and build automation
 
-Boilerplate Reduction: Integrated with Lombok to cleanly manage Getters, Setters, and Builders.
-🛠 Tech StackComponentTechnologyDescriptionLanguageJava 17Core programming language.FrameworkSpring Boot 3.3.0Application framework and IoC container.PersistenceSpring Data JPAORM layer for database interactions.DatabaseH2 DatabaseIn-memory relational database for rapid dev/testing.UtilitiesLombokAnnotation processor for reducing boilerplate code.Build ToolMavenDependency management and build automation.🏗 ArchitectureThe service strictly follows a layered architectural pattern to enforce separation of concerns:Code snippetflowchart TD
+flowchart TD
     Client([Client / API Gateway]) -->|HTTP REST| Controller[ProductController]
+    
+    subgraph Product Service
+        Controller -->|DTOs| Service[ProductService / Impl]
+        Service -->|JPA Entities| Repository[ProductRepository]
+    end
+    
+    Repository -->|SQL| Database[(H2 Database)]
+    
+    %% Error Flow
+    Service -.->|Throws| ExceptionHandler[Custom Exception Handler]
     
     subgraph Product Service
         Controller -->|DTOs| Service[ProductService / Impl]
