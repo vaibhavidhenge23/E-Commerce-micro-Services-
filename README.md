@@ -38,7 +38,8 @@ flowchart TD
     
     %% Error Flow
     Service -.->|Throws| ExceptionHandler[Custom Exception Handler]
-📁 Project StructurePlaintext├── src/main/java/com/dailycodebuffer/ProductService/
+📁 Project Structure
+├── src/main/java/com/dailycodebuffer/ProductService/
 │   ├── ProductServiceApplication.java   # Main Spring Boot Entry Point
 │   ├── controller/
 │   │   └── ProductController.java       # REST API Endpoints
